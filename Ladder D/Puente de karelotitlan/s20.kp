@@ -1,0 +1,111 @@
+iniciar-programa
+	define-nueva-instruccion este como
+		mientras no-orientado-al-este hacer gira-izquierda;
+	
+	define-nueva-instruccion norte como
+		mientras no-orientado-al-norte hacer gira-izquierda;
+	
+	define-nueva-instruccion oeste como
+		mientras no-orientado-al-oeste hacer gira-izquierda;
+	
+	define-nueva-instruccion sur como
+		mientras no-orientado-al-sur hacer gira-izquierda;
+
+	define-nueva-instruccion pared como
+		mientras frente-libre hacer avanza;
+	
+	define-nueva-instruccion arriba como
+	inicio
+		si no-orientado-al-norte entonces
+		inicio
+			gira-izquierda;
+			arriba;
+			gira-izquierda;
+			gira-izquierda;
+			gira-izquierda;
+		fin
+		sino
+			avanza;
+	fin;
+
+	define-nueva-instruccion abajo como
+	inicio
+		si no-orientado-al-sur entonces
+		inicio
+			gira-izquierda;
+			abajo;
+			gira-izquierda;
+			gira-izquierda;
+			gira-izquierda;
+		fin
+		sino
+			avanza;
+	fin;
+	
+	define-nueva-instruccion sube(n) como
+	inicio
+		deja-zumbador;
+		si no si-es-cero(n) entonces
+		inicio
+			arriba;
+			avanza;
+			sube(precede(precede(n)));
+		fin;
+	fin;
+
+	
+	define-nueva-instruccion baja(n) como
+	inicio
+		
+		deja-zumbador;
+		si no si-es-cero(n) entonces
+		inicio
+			abajo;
+			avanza;
+			baja(precede(precede(n)));
+		fin;
+	fin;
+
+	define-nueva-instruccion contar(n) como 
+	inicio
+		si derecha-libre entonces
+		inicio
+			avanza;
+			contar(sucede(n));
+		fin
+		sino
+		inicio
+			oeste;
+			avanza;
+			sube(precede(n));
+			coge-zumbador;
+			baja(precede(n));
+		fin;
+	fin;
+
+	define-nueva-instruccion siguiente como
+	inicio
+		sur;
+		pared;
+		este;
+		pared;
+		norte;
+		mientras derecha-bloqueada hacer avanza;
+		gira-izquierda;
+		gira-izquierda;
+		gira-izquierda;
+		avanza;
+		gira-izquierda;
+	fin;
+	
+	inicia-ejecucion
+		mientras derecha-libre hacer
+		inicio
+			este;
+			avanza;
+			contar(0);
+			siguiente;
+		fin;
+		apagate;
+	termina-ejecucion
+finalizar-programa

@@ -1,0 +1,119 @@
+iniciar-programa
+
+	
+	{ @saltatela }
+	define-nueva-instruccion gira(n) como
+	inicio
+		repetir n veces
+			gira-izquierda;
+	fin;
+	{ @saltatela }
+	define-nueva-instruccion norte como
+	inicio
+		mientras no-orientado-al-norte hacer 
+			gira-izquierda;
+	fin;
+	define-nueva-instruccion fila(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			fila(sucede(n));
+			
+		fin 
+		sino
+		inicio
+			si frente-libre entonces
+			inicio
+				avanza;
+				si junto-a-zumbador entonces
+					fila(0);
+			fin;
+			gira(2);
+			mientras frente-libre hacer
+				avanza;
+			gira(2);
+			repetir precede(n) veces
+				avanza;
+			
+			si no si-es-cero(precede(n)) entonces
+			deja-zumbador;
+		fin;
+	fin;
+
+	define-nueva-instruccion max(n) como
+	inicio
+		si junto-a-zumbador y no si-es-cero(n) entonces
+		inicio
+			coge-zumbador;
+			max(precede(n));
+			deja-zumbador;
+		fin 
+		sino
+			repetir n veces
+				deja-zumbador;
+	fin;
+	
+	define-nueva-instruccion empuja(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			empuja(sucede(n));
+		fin
+		sino
+		inicio
+			avanza;
+			max(n);
+		fin;
+	fin;
+
+	define-nueva-instruccion suma(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			suma(sucede(n));
+		fin
+		sino
+		inicio
+			avanza;
+			repetir n veces
+				deja-zumbador;
+		fin;
+	fin;
+	
+	inicia-ejecucion
+		mientras orientado-al-norte hacer
+		inicio		
+			gira(3);
+			fila(0);
+			gira(2);
+			mientras frente-libre hacer
+				avanza;
+			gira(3);
+			si frente-libre entonces
+				avanza
+			sino
+				gira-izquierda;
+			si no-junto-a-zumbador entonces
+				gira-izquierda;
+		fin;
+			norte;
+		repetir 10 veces
+		inicio
+			mientras frente-libre hacer
+				avanza;
+			gira(2);
+			mientras frente-libre hacer
+				empuja(0);
+			gira-izquierda;
+			avanza;
+			gira-izquierda;
+		fin;
+		gira-izquierda;
+		mientras frente-libre hacer
+			suma(0);
+		apagate;
+	termina-ejecucion
+finalizar-programa

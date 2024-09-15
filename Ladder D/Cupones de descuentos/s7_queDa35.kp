@@ -1,0 +1,66 @@
+iniciar-programa
+	define-nueva-instruccion gira(n) como
+		repetir n veces
+			gira-izquierda;
+	define-nueva-instruccion cupon(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;			
+			si frente-libre entonces
+				avanza;
+			cupon(sucede(n));
+		fin
+		sino
+		inicio
+			gira(3);
+			avanza;
+			gira(3);
+			mientras frente-libre hacer
+				avanza;
+			gira(2);
+			mientras junto-a-zumbador hacer avanza;
+			gira(2);
+			si no-junto-a-zumbador entonces
+				avanza;
+			repetir n veces
+			inicio
+				mientras junto-a-zumbador hacer
+					coge-zumbador;
+				si frente-libre entonces
+					avanza;
+			fin;
+		fin;
+		
+	fin;
+
+	define-nueva-instruccion suma(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			suma(sucede(n));
+		fin 
+		sino
+		inicio
+			mientras frente-libre y no-junto-a-zumbador hacer
+				avanza;
+			si junto-a-zumbador entonces
+				suma(n)
+			sino
+				repetir n veces
+					deja-zumbador;
+		fin;
+	fin;
+	inicia-ejecucion
+		avanza;
+		gira(3);
+		cupon(0);
+		gira(2);
+		mientras frente-libre hacer
+			avanza;
+		gira(2);
+		suma(0);
+		apagate;
+	termina-ejecucion
+finalizar-programa

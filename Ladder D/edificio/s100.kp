@@ -1,0 +1,153 @@
+iniciar-programa
+	define-prototipo-instruccion push(n);
+
+	define-nueva-instruccion east como
+	inicio
+		mientras no orientado-al-este hacer
+			gira-izquierda;
+	fin;
+
+	define-nueva-instruccion west como
+	inicio
+		mientras no orientado-al-oeste hacer
+			gira-izquierda;
+	fin;
+
+	define-nueva-instruccion wall como
+	inicio
+		mientras frente-libre hacer
+		inicio
+			avanza;
+		fin;
+	fin;
+
+	define-nueva-instruccion min(n) como
+	inicio
+		si junto-a-zumbador y no si-es-cero(n) entonces
+		inicio
+			coge-zumbador;
+			min(precede(n));
+			deja-zumbador;
+		fin
+		sino
+		inicio
+			mientras junto-a-zumbador hacer
+				coge-zumbador;
+		fin;
+	fin;
+
+	define-nueva-instruccion count(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			count(sucede(n));
+		fin
+		sino
+		inicio
+			repetir n veces
+				deja-zumbador;
+			avanza;
+			si no si-es-cero(n) entonces
+				push(sucede(n));
+		fin;
+	fin;
+
+	define-nueva-instruccion set(n) como
+	inicio
+		si junto-a-zumbador entonces
+			min(n)
+		sino
+			repetir n veces
+			deja-zumbador;
+	fin;
+
+	define-nueva-instruccion push(n) como
+	inicio
+		set(n);
+	fin;
+
+	define-nueva-instruccion low(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			low(sucede(n));
+		fin
+		sino
+		inicio
+			repetir n veces
+				deja-zumbador;
+			si izquierda-libre entonces
+			inicio
+				gira-izquierda;
+				avanza;
+				repetir n veces
+					deja-zumbador;
+				repetir 2 veces
+					gira-izquierda;
+				avanza;
+				gira-izquierda;
+			fin;
+		fin;
+	fin;
+
+	define-nueva-instruccion row como
+	inicio
+		east;
+		wall;
+		west;
+		mientras frente-libre hacer
+			count(0);
+		east;
+		mientras frente-libre hacer
+			count(0);
+		west;
+		low(0);
+		mientras frente-libre hacer
+		inicio
+			avanza;
+			low(0);
+		fin;
+		east;
+		mientras no derecha-libre y frente-libre hacer
+		inicio
+			avanza;
+		fin;
+	fin;
+
+	define-nueva-instruccion ans(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			ans(sucede(n));
+		fin
+		sino
+		inicio
+			avanza;
+			min(n);
+		fin;
+	fin;
+
+	inicia-ejecucion
+		deja-zumbador;
+		row;
+		mientras derecha-libre hacer
+		inicio
+			repetir 3 veces
+				gira-izquierda;
+			avanza;
+			row;
+		fin;
+		east;
+		wall;
+		west;
+		mientras frente-libre hacer
+		inicio
+			ans(0);
+		fin;
+		coge-zumbador;
+		apagate;
+	termina-ejecucion
+finalizar-programa

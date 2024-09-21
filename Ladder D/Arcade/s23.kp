@@ -1,0 +1,36 @@
+iniciar-programa
+
+	define-nueva-instruccion revisa como
+	inicio
+		si junto-a-zumbador entonces
+			apagate;
+		si frente-libre entonces
+		inicio
+			avanza;
+			revisa;
+			avanza;
+		fin
+		sino
+		inicio
+			gira-izquierda;
+			gira-izquierda;
+		fin;
+	fin;
+	inicia-ejecucion
+		mientras derecha-libre y frente-libre hacer
+		inicio
+			{Revisa columna}
+			revisa; 
+			{Siguiente columna}
+			gira-izquierda;
+			avanza;
+			gira-izquierda;
+			avanza;
+		fin;
+		si no-junto-a-zumbador entonces
+		inicio
+			gira-izquierda;
+			gira-izquierda;
+		fin;
+	termina-ejecucion
+finalizar-programa

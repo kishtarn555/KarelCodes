@@ -1,0 +1,139 @@
+iniciar-programa
+	define-nueva-instruccion derecha como
+		repetir 3 veces
+			gira-izquierda;
+	
+	define-nueva-instruccion cubeta(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			cubeta(sucede(n));
+		fin
+		sino
+		inicio
+			si frente-libre entonces
+			inicio
+				avanza;
+				si junto-a-zumbador entonces
+				inicio
+					cubeta(0);
+				fin;
+			fin;
+			gira-izquierda;
+			gira-izquierda;
+			mientras frente-libre hacer
+				avanza;
+			gira-izquierda;
+			gira-izquierda;
+			repetir precede(n) veces
+				avanza;
+			deja-zumbador;
+		fin;
+	fin;
+	define-nueva-instruccion empuja-maximo(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			empuja-maximo(sucede(n));
+		fin
+		sino
+		inicio
+			avanza;
+			repetir n veces
+				si junto-a-zumbador entonces
+					coge-zumbador;
+			repetir n veces 
+				deja-zumbador;
+		fin;
+	fin;
+
+	
+	define-nueva-instruccion deja(k) como
+	inicio
+		si si-es-cero(k) entonces
+		inicio
+			gira-izquierda;
+			gira-izquierda;
+			sal-de-instruccion;
+		fin;
+		deja-zumbador;
+		si frente-libre entonces
+		inicio
+			avanza;
+			deja(precede(k));
+			avanza;
+		fin
+		sino
+		inicio			
+			gira-izquierda;
+			gira-izquierda;
+		fin;
+	fin;
+	
+	define-nueva-instruccion sube(k) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			sube(k);
+			deja(k);
+			gira-izquierda;
+			gira-izquierda;
+		fin
+		sino
+		inicio
+			gira-izquierda;
+			avanza;
+			derecha;
+		fin;
+	fin;
+
+	define-nueva-instruccion contar(k) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			contar(sucede(k));
+		fin
+		sino
+		inicio
+			gira-izquierda;
+			gira-izquierda;
+			avanza;
+			gira-izquierda;
+			mientras frente-libre hacer
+			inicio
+				sube(k);
+				derecha;
+				avanza;
+				gira-izquierda;
+				avanza;
+			fin;
+			sube(k);
+			
+		fin;
+	fin;
+	
+	inicia-ejecucion
+		repetir 3 veces
+			gira-izquierda;
+		cubeta(0);
+		
+		gira-izquierda;
+		gira-izquierda;
+		mientras frente-libre hacer
+			avanza;
+		derecha;
+		avanza;
+		contar(0);
+		gira-izquierda;
+		gira-izquierda;
+		mientras frente-libre hacer
+			empuja-maximo(0);
+		gira-izquierda;		
+		empuja-maximo(0);
+		apagate;
+	termina-ejecucion
+finalizar-programa

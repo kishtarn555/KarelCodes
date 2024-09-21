@@ -1,0 +1,60 @@
+iniciar-programa
+	define-nueva-instruccion cubeta(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			cubeta(sucede(n));
+		fin
+		sino
+		inicio
+			si frente-libre entonces
+			inicio
+				avanza;
+				si junto-a-zumbador entonces
+				inicio
+					cubeta(0);
+				fin;
+			fin;
+			gira-izquierda;
+			gira-izquierda;
+			mientras frente-libre hacer
+				avanza;
+			gira-izquierda;
+			gira-izquierda;
+			repetir precede(n) veces
+				avanza;
+			deja-zumbador;
+		fin;
+	fin;
+	define-nueva-instruccion empuja-maximo(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			empuja-maximo(sucede(n));
+		fin
+		sino
+		inicio
+			avanza;
+			repetir n veces
+				si junto-a-zumbador entonces
+					coge-zumbador;
+			repetir n veces 
+				deja-zumbador;
+		fin;
+	fin;
+	
+	inicia-ejecucion
+		repetir 3 veces
+			gira-izquierda;
+		cubeta(0);
+		mientras frente-libre hacer
+			avanza;
+		gira-izquierda;
+		gira-izquierda;
+		mientras frente-libre hacer
+			empuja-maximo(0);
+		apagate;
+	termina-ejecucion
+finalizar-programa

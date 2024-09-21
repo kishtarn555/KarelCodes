@@ -1,0 +1,34 @@
+iniciar-programa
+	define-nueva-instruccion caso-base como
+	inicio
+		gira-izquierda;
+		gira-izquierda;
+		mientras frente-libre hacer 
+			avanza;
+		mientras junto-a-zumbador hacer
+			coge-zumbador;
+	fin;
+	
+	define-nueva-instruccion contar como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			si frente-libre entonces
+			inicio
+				avanza;
+				contar;
+			fin 
+			sino
+				caso-base;
+			deja-zumbador;
+		fin
+		sino
+			caso-base;
+	fin;
+	inicia-ejecucion
+		repetir 3 veces
+			gira-izquierda;
+		contar;
+		apagate;
+	termina-ejecucion
+finalizar-programa

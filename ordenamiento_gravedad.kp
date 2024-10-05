@@ -1,0 +1,149 @@
+iniciar-programa
+	define-nueva-instruccion derecha como
+		repetir 3 veces
+			gira-izquierda;
+	define-nueva-instruccion media como
+		repetir 2 veces
+			gira-izquierda;
+
+	define-nueva-instruccion cuenta(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			cuenta(sucede(n));
+		fin 
+		sino
+		inicio
+			deja-zumbador;
+			repetir precede(n) veces
+			inicio
+				avanza;
+				deja-zumbador;
+			fin;
+		fin;
+	fin;
+	{ Inicia al este, levanta la torre y 
+		te deja donde iniciaste
+	}
+	define-nueva-instruccion torre como
+	inicio
+		gira-izquierda;
+		cuenta(0);
+		media;
+		mientras frente-libre hacer avanza;
+		gira-izquierda;
+	fin;
+	{
+		Colapsar cuenta cuantos zumbadores hay en la
+		fila y luego los deja de izquierda a derecha
+	
+	}
+	define-nueva-instruccion colapsar(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			colapsar(sucede(n));
+		fin
+		sino si frente-libre entonces
+		inicio
+			avanza;
+			colapsar(n);
+		fin
+		sino
+		inicio
+			media;
+			deja-zumbador;
+			repetir precede(n) veces
+			inicio
+				avanza;
+				deja-zumbador;
+			fin;
+		fin;
+	fin;
+
+	
+	define-nueva-instruccion bajar(n) como
+	inicio
+		si junto-a-zumbador entonces
+		inicio
+			coge-zumbador;
+			bajar(sucede(n));
+		fin
+		sino si frente-libre entonces
+		inicio
+			avanza;
+			bajar(n);
+		fin
+		sino
+		inicio
+			repetir n veces
+				deja-zumbador;
+		fin;
+	fin;
+
+	{ Te mueve a la siguiente fila
+		Inicia orientado al este en alguna casilla
+		Te deja hasta la derecha de la siguiente fila
+		Orientado al oeste
+	}
+	define-nueva-instruccion siguiente-fila como
+	inicio
+		mientras frente-libre hacer
+			avanza;
+		gira-izquierda;
+		avanza;
+		gira-izquierda;
+	fin;
+	
+	{ Te mueve a la siguiente columna
+		Inicia orientado al sur en alguna la fila 1
+		Te deja hasta la arriba de la siguiente columna
+		Orientado al sur
+	}
+	define-nueva-instruccion siguiente-columna como
+	inicio
+		gira-izquierda;
+		avanza;
+		gira-izquierda;
+		mientras frente-libre hacer
+			avanza;
+		media;
+	fin;
+
+	
+	define-nueva-instruccion gravedad como
+	inicio
+		mientras junto-a-zumbador y frente-libre hacer
+		inicio
+			torre;
+			avanza;
+		fin;
+		si junto-a-zumbador entonces
+			torre;
+		media;
+		mientras derecha-libre hacer
+		inicio
+			colapsar(0);
+			siguiente-fila;
+		fin;
+		colapsar(0);
+		media;
+		mientras frente-libre hacer
+			avanza;
+		gira-izquierda;
+		mientras izquierda-libre hacer
+		inicio
+			bajar(0);
+			siguiente-columna;
+		fin;
+		bajar(0);		
+	fin;
+	inicia-ejecucion
+		derecha;
+		avanza;
+		gravedad;
+		apagate;
+	termina-ejecucion
+finalizar-programa

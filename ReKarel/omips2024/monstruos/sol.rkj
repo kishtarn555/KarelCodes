@@ -1,0 +1,136 @@
+import rekarel.globals;
+class program {
+	// @autoSkip
+	void right() {
+		iterate(3) turnleft();
+	}
+	// @autoSkip
+	void back() {
+		iterate(2) turnleft();
+	}
+	void bubble(n) {
+		if (frontIsClear) {
+			move();
+			if (nextToABeeper) {
+				bubble(succ(n));
+			} else {
+				solve1(n);
+				
+			}
+		} else {
+			solve1(n);
+		}
+	}
+	void sort(n) {
+		back();
+		while (frontIsClear) move();
+		back();
+		
+		if (n == 0)
+			return;
+		iterate(n) {
+			pair1(beepersOnFloor);
+		}
+		sort(pred(n));
+	}
+	
+	void pair1(a) {
+		move();
+		pair2(a,beepersOnFloor);
+	}
+
+	void pair2(a, b) {
+		if (a < b)
+			return;
+		back();
+		while(nextToABeeper) pickbeeper();
+		iterate(a) putbeeper();
+		move();
+		while(nextToABeeper) pickbeeper();
+		iterate(b) putbeeper();
+		back();
+		move();
+	}
+	void solve1(n) {
+		sort(n);		
+		turnleft();
+		move();
+		back();
+		solve(n, beepersOnFloor);
+	}
+	void solve(n, x) {
+		while (nextToABeeper)
+			pickbeeper();
+		move();
+		turnleft();
+		iterate(n) {
+			while (nextToABeeper && beepersOnFloor <= x) {
+				attack(x);
+			}
+			if (nextToABeeper) {
+				kill();
+			}
+			move();
+			
+		}
+		
+		if (nextToABeeper) {
+			kill();
+		}
+	}
+	void attack(x) {
+		iterate(x) {
+			if (beepersOnFloor == 0)
+				break;
+			pickbeeper();
+		}
+		move();
+		
+		iterate(x) {
+			if (beepersOnFloor == 0)
+				break;
+			pickbeeper();
+		}
+		turnleft();
+		move();
+		turnleft();
+		move();		
+		putbeeper();
+		turnleft();
+		move();
+		turnleft();
+	}
+	void kill() {
+		while (nextToABeeper) {
+			pickbeeper();
+		}
+		turnleft();
+		move();
+		putbeeper();
+		back();
+		move();
+		turnleft();
+	}
+	void push(n) {
+		iterate(n) {
+			pickbeeper();
+		}
+		move();
+		iterate(n) {
+			putbeeper();
+		}
+	}
+	program () {
+		right();
+		bubble(0);
+		turnleft();
+		move();
+		turnleft();
+		while (frontIsClear) {
+			push(beepersOnFloor);
+		}
+		turnleft();
+		push(beepersOnFloor);
+		turnoff();
+	}
+}
